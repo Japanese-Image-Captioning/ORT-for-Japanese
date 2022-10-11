@@ -18,6 +18,7 @@ from dataloader import *
 import eval_utils
 import misc.utils as utils
 from misc.rewards import init_scorer, get_self_critical_reward
+from tqdm import tqdm
 
 try:
     import tensorboardX as tb
@@ -94,7 +95,8 @@ def train(opt):
     if vars(opt).get('start_from', None) is not None and os.path.isfile(os.path.join(opt.start_from,"optimizer.pth")):
         optimizer.load_state_dict(torch.load(os.path.join(opt.start_from, 'optimizer.pth')))
 
-    while True:
+    # while True:
+    for _ in tqdm(range(10**5)):
         if epoch_done:
             if not opt.noamopt and not opt.reduce_on_plateau:
                 # Assign the learning rate
@@ -123,7 +125,7 @@ def train(opt):
         start = time.time()
         # Load data from train split (0)
         data = loader.get_batch('train')
-        print('Read data:', time.time() - start)
+        # print('Read data:', time.time() - start)
 
         torch.cuda.synchronize()
         start = time.time()
@@ -157,12 +159,14 @@ def train(opt):
         train_loss = loss.item()
         torch.cuda.synchronize()
         end = time.time()
-        if not sc_flag:
-            print("iter {} (epoch {}), train_loss = {:.3f}, time/batch = {:.3f}" \
-                .format(iteration, epoch, train_loss, end - start))
-        else:
-            print("iter {} (epoch {}), avg_reward = {:.3f}, time/batch = {:.3f}" \
-                .format(iteration, epoch, np.mean(reward[:,0]), end - start))
+
+        if iteration % 100 == 0:
+            if not sc_flag:
+                print("iter {} (epoch {}), train_loss = {:.3f}, time/batch = {:.3f}" \
+                    .format(iteration, epoch, train_loss, end - start))
+            else:
+                print("iter {} (epoch {}), avg_reward = {:.3f}, time/batch = {:.3f}" \
+                    .format(iteration, epoch, np.mean(reward[:,0]), end - start))
 
         # Update the iteration and epoch
         iteration += 1

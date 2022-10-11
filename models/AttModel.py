@@ -39,7 +39,7 @@ def pad_unsort_packed_sequence(input, inv_ix):
 
 def pack_wrapper(module, att_feats, att_masks):
     if att_masks is not None:
-        packed, inv_ix = sort_pack_padded_sequence(att_feats, att_masks.data.long().sum(1))
+        packed, inv_ix = sort_pack_padded_sequence(att_feats, att_masks.data.long().sum(1).cpu())
         return pad_unsort_packed_sequence(PackedSequence(module(packed[0]), packed[1]), inv_ix)
     else:
         return module(att_feats)

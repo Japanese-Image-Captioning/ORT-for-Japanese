@@ -25,7 +25,18 @@ import opts
 def language_eval(dataset, preds, model_id, image_root, split):
     import sys
     sys.path.append("coco-caption")
-    annFile = 'coco-caption/annotations/captions_val2014.json'
+    # annFile = 'coco-caption/annotations/captions_val2014.json'
+    annFile = 'STAIR-captions/stair_captions_v1.2_val_tokenized_shaped.json'
+    if not os.path.exists(annFile):
+        _annFile = 'STAIR-captions/stair_captions_v1.2_val_tokenized.json'
+        with open(_annFile, "r") as f:
+            data = json.load(f)
+        shaped = [{"image_id" : d["image_id"], "id": d["id"], "caption" : d["tokenized_caption"]} for d in data["annotations"]]
+        data["annotations"] = shaped
+        with open(annFile, "w") as f:
+            output = json.dumps(data)
+            f.write(output)
+
     from pycocotools.coco import COCO
     from misc.correct_coco_eval_cap import CorrectCOCOEvalCap
 

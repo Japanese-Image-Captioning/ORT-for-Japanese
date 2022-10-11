@@ -230,6 +230,7 @@ def box_attention(query, key, value, box_relation_embds_matrix, mask=None, dropo
     #w_g = box_relation_embds_matrix.view(N,N)
     w_g = box_relation_embds_matrix
     w_a = scaled_dot
+    # print("wg,wa:",w_g.shape, w_a.shape)
     #w_a = scaled_dot.view(N,N)
 
     # multiplying log of geometric weights by feature weights
