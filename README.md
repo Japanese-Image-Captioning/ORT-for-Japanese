@@ -1,26 +1,22 @@
 # Object Relation Transformer
 
-This is a PyTorch implementation of the Object Relation Transformer published in NeurIPS 2019. You can find the paper [here](https://papers.nips.cc/paper/9293-image-captioning-transforming-objects-into-words.pdf). This repository is largely based on code from Ruotian Luo's Self-critical Sequence Training for Image Captioning GitHub repo, which can be found [here](https://github.com/ruotianluo/self-critical.pytorch).
+<img width="1341" alt="Screen Shot 2022-10-11 at 19 55 33" src="https://user-images.githubusercontent.com/51681991/195072462-d8a07e64-2b96-4ac0-a952-554134801f26.png">
 
-The primary additions are as follows:
-* Relation transformer model
-* Script to create reports for runs on MSCOCO
+- [Image Captioning: Transforming Objects into Words](https://arxiv.org/abs/1906.05963)
+- This repository is based on [the repo](https://github.com/yahoo/object_relation_transformer).
+- This code uses [STAIR Captions](http://captions.stair.center/) for training Japanese image captioning model.
+  - So you should download STAIR Captions and [COCO datasets](https://cocodataset.org/#download)
 
 
 ## Requirements
 * Python 3.8.10
 * PyTorch
-* h5py
-* scikit-image
-* typing
-* pyemd
-* gensim
-* The [coco-caption](https://github.com/tylin/coco-caption) library,
-  which is used for generating different evaluation metrics. To set it
-  up, clone the repo into the `object_relation_transformer`
-  folder. Make sure to keep the cloned repo folder name as
-  `coco-caption` and also to run the `get_stanford_models.sh`
-  script from within that repo.
+
+Run:
+
+```
+pip install -r requirements.txt
+```
 
 ## Data Preparation
 
