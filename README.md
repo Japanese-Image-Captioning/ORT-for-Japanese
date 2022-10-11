@@ -29,9 +29,14 @@ mkdir data/imagenet_weights
 cp /path/to/downloaded/weights/resnet101.pth data/imagenet_weights
 ```
 
-### Download and preprocess the COCO captions
+### preprocess the COCO captions
 
-Download the [preprocessed COCO captions](http://cs.stanford.edu/people/karpathy/deepimagesent/caption_datasets.zip) from Karpathy's homepage. Extract `stair_coco.json` from the zip file and copy it in to `data/`. This file provides preprocessed captions and also standard train-val-test splits.
+<!--- Download the [preprocessed COCO captions](http://cs.stanford.edu/people/karpathy/deepimagesent/caption_datasets.zip) from Karpathy's homepage. Extract `stair_coco.json` from the zip file and copy it in to `data/`. This file provides preprocessed captions and also standard train-val-test splits.
+-->
+
+```
+$ python scripts/prepro_stair_labels.py
+```
 
 Then run:
 
@@ -69,10 +74,6 @@ The last two commands are needed to address an issue with a corrupted image in t
 
 
 Then run:
-
-```
-$ python scripts/prepro_stair_labels.py
-```
 
 ```
 $ python scripts/prepro_feats.py --input_json data/stair_coco.json --output_dir data/cocotalk --images_root $IMAGE_ROOT
